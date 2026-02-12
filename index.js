@@ -17,12 +17,6 @@ db.run(`CREATE TABLE IF NOT EXISTS reminders (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )`);
 
-// Загружаем сохранённые напоминания при старте
-db.all('SELECT * FROM reminders WHERE remind_at > ?', [new Date().toISOString()], (err, rows) => {
-  if (err) throw err;
-  rows.forEach(row => scheduleReminder(row));
-  });
-
 // ==================== КОМАНДЫ ====================
 
 bot.onText(/\/start/, (msg) => {
