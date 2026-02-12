@@ -21,7 +21,7 @@ db.run(`CREATE TABLE IF NOT EXISTS reminders (
 db.all('SELECT * FROM reminders WHERE remind_at > ?', [new Date().toISOString()], (err, rows) => {
   if (err) throw err;
   rows.forEach(row => scheduleReminder(row));
-});
+  });
 
 // ==================== КОМАНДЫ ====================
 
