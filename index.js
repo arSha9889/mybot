@@ -93,6 +93,58 @@ bot.onText(/\/list/, (msg) => {
   );
 });
 
+// ==================== /donate ====================
+// Команда донатов для России и Беларуси (СБП)
+bot.onText(/\/donate/, (msg) => {
+  const chatId = msg.chat.id;
+  const phoneNumber = '+7 (999) 123-45-67'; // заглушка, заменить позже
+
+  const text =
+    '━━━━━━━━━━━━━━━━━━━━━\n' +
+    '🇷🇺🇧🇾 РОССИЯ / БЕЛАРУСЬ\n' +
+    '━━━━━━━━━━━━━━━━━━━━━\n\n' +
+    '💰 Поддержать проект можно переводом по СБП.\n\n' +
+    '📱 Номер телефона:\n' +
+    `<code>${phoneNumber}</code>\n\n` +
+    '❤️ Спасибо, что помогаете боту работать 24/7!';
+
+  const keyboard = {
+    inline_keyboard: [
+      [
+        { text: '🖼 Показать QR-код', callback_data: 'donate_show_qr' },
+        { text: '📋 Копировать номер', callback_data: 'donate_copy_number' }
+      ]
+    ]
+  };
+
+  bot.sendMessage(chatId, text, {
+    parse_mode: 'HTML',
+    reply_markup: keyboard
+  });
+});
+
+// Обработчик нажатий inline-кнопок
+bot.on('callback_query', (query) => {
+  const chatId = query.message.chat.id;
+  const messageId = query.message.message_id;
+  const data = query.data;
+
+  if (data === 'donate_copy_number') {
+    // Отправляем номер в чат для удобного копирования
+    const phoneNumber = '+7 (932) 099-85-51';
+    bot.answerCallbackQuery(query.id);
+    bot.sendMessage(chatId, `📋 Номер для СБП:\n<code>${phoneNumber}</code>`, {
+      parse_mode: 'HTML'
+    });
+  } else if (data === 'donate_show_qr') {
+    // Заглушка — изображение с текстом «QR-код появится позже»
+    bot.answerCallbackQuery(query.id);
+    bot.sendPhoto(chatId, 'https://placehold.co/200x200/png?text=QR', {
+      caption: 'QR-код появится позже'
+    });
+  }
+});
+
 // ==================== /cancel ====================
 bot.onText(/\/cancel (\d+)/, (msg, match) => {
   const chatId = msg.chat.id;
