@@ -97,7 +97,7 @@ bot.onText(/\/list/, (msg) => {
 // Команда донатов для России и Беларуси (СБП)
 bot.onText(/\/donate/, (msg) => {
   const chatId = msg.chat.id;
-  const phoneNumber = '+7 (999) 123-45-67'; // заглушка, заменить позже
+  const phoneNumber = '+7 (932) 099-85-51';
 
   const text =
     '━━━━━━━━━━━━━━━━━━━━━\n' +
